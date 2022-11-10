@@ -1,0 +1,59 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "metadata": {
+    "_generator": {
+      "name": "bicep",
+      "version": "0.6.18.56646",
+      "templateHash": "13481022825814013821"
+    }
+  },
+  "parameters": {
+    "name": {
+      "type": "string",
+      "metadata": {
+        "description": "Required. The name of the availability set that is being created."
+      }
+    },
+    "skuFamily": {
+      "type": "string",
+      "metadata": {
+        "description": "Required. The SKU family name for the key vault."
+      },
+      "allowedValues": [
+        "A"
+      ]
+    },
+    "skuName": {
+      "type": "string",
+      "metadata": {
+        "description": "Required. The SKU name for the key vault"
+      },
+      "allowedValues": [
+        "premium",
+        "standard"
+      ]
+    },
+    "location": {
+      "type": "string",
+      "metadata": {
+        "description": "Required. Resource location."
+      }
+    }
+  },
+  "resources": [
+    {
+      "type": "Microsoft.KeyVault/vaults",
+      "apiVersion": "2022-07-01",
+      "name": "[parameters('name')]",
+      "location": "[parameters('location')]",
+      "properties": {
+        "sku": {
+          "family": "[parameters('skuFamily')]",
+          "name": "[parameters('skuName')]"
+        },
+        "tenantId": "[tenant().tenantId]"
+      }
+    }
+  ]
+}
